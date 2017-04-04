@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Author: Cameron Downer
+# Date: 04/04/2017
+# TODO:
+#   - Do not show notification if laptop is charging
+#   - Variable sleep period
+
+THRESHOLD=20
+CHARGING_REGEX="Charging"
+
+while true; do
+    BAT_STATUS=`acpi -b`
+    BAT_PERCENT=`echo $BAT_STATUS | grep -oP '\d{1,3}\%' | grep -oP '\d{1,3}'`
+    if [[ $BAT_PERCENT -lt $THRESHOLD && $BAT_STATUS =~ $CHARGING_REGEX ]]; then
+        notify-send "Battery is low! You need to plug in soon.";
+    fi
+
+    sleep 1m;
+done
