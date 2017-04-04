@@ -7,13 +7,15 @@
 #   - Variable sleep period
 
 THRESHOLD=20
-CHARGING_REGEX="Charging"
+DISCHARGING="Discharging"
 
 while true; do
-    BAT_STATUS=`acpi -b`
-    BAT_PERCENT=`echo $BAT_STATUS | grep -oP '\d{1,3}\%' | grep -oP '\d{1,3}'`
-    if [[ $BAT_PERCENT -lt $THRESHOLD && $BAT_STATUS =~ $CHARGING_REGEX ]]; then
-        notify-send "Battery is low! You need to plug in soon.";
+    BAT_STATUS=`acpi -b`;
+    BAT_PERCENT=`echo $BAT_STATUS | grep -oP '\d{1,3}\%' | grep -oP '\d{1,3}'`;
+    echo $BAT_PERCENT;
+    echo $BAT_STATUS;
+    if [[ $BAT_PERCENT -lt $THRESHOLD && $BAT_STATUS =~ $DISCHARGING ]]; then
+        notify-send "Battery is low!" "Plug your laptop in soon";
     fi
 
     sleep 1m;
