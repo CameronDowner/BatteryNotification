@@ -3,7 +3,6 @@
 # Author: Cameron Downer
 # Date: 04/04/2017
 # TODO:
-#   - Do not show notification if laptop is charging
 #   - Variable sleep period
 
 THRESHOLD=20
@@ -12,8 +11,6 @@ DISCHARGING="Discharging"
 while true; do
     BAT_STATUS=`acpi -b`;
     BAT_PERCENT=`echo $BAT_STATUS | grep -oP '\d{1,3}\%' | grep -oP '\d{1,3}'`;
-    echo $BAT_PERCENT;
-    echo $BAT_STATUS;
     if [[ $BAT_PERCENT -lt $THRESHOLD && $BAT_STATUS =~ $DISCHARGING ]]; then
         notify-send "Battery is low!" "Plug your laptop in soon";
     fi
