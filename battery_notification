@@ -12,7 +12,7 @@ while true; do
     BAT_STATUS=`acpi -b`;
     BAT_PERCENT=`echo $BAT_STATUS | grep -oP '\d{1,3}\%' | grep -oP '\d{1,3}'`;
     if [[ $BAT_PERCENT -lt $THRESHOLD && $BAT_STATUS =~ $DISCHARGING ]]; then
-        notify-send "Battery is low!" "Plug your laptop in soon";
+        notify-send -i battery-low "Battery is low!" "Plug in your laptop soon";
     fi
 
     sleep 1m;
